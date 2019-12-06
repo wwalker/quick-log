@@ -6,7 +6,7 @@ Tools for logging program runs or login sessions, mostly bash functions and alia
 Yesterday I wrote a set of tools for logging program runs and sessions.  Can't believe I didn't write them 20 years ago....
 Simple usage example:
 
-Runs the program `run` and creates `~/logs/runner-2019-12-05T23:54:43` and logs all the program output to the log file.
+Runs the program `run` and creates `~/logs/run-2019-12-05T23:54:43` and logs all the program output to the log file.
 ```
 justlog run rcn rcn-work-* 'ps -ef -o lstart,cmd | grep [s]upervisor'
 ```
