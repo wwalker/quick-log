@@ -1,19 +1,20 @@
 # quick-log
 
-Tools for logging program runs or login sessions, mostly bash functions and aliases, goes in your .bashrc
+Tools for logging program execution outputs or login sessions, mostly bash functions and aliases, goes in your .bashrc
 
 # TL;DR
 Yesterday I wrote a set of tools for logging program runs and sessions.  Can't believe I didn't write them 20 years ago....
 Simple usage example:
 
-Runs the program `run` and creates `~/logs/run-2019-12-05T23:54:43` and logs all the program output to the log file.
+Runs the program `barman` and creates `~/logs/barman-2019-12-05T23:54:43` and logs all the program output to the log file.
+
 ```
-justlog run rcn rcn-work-* 'ps -ef -o lstart,cmd | grep [s]upervisor'
+justlog barman -v check-backup mtv-pg-01 --run 20191127T045147
 ```
 
 View the newly created log file in less
 ```
-lesslog run
+lesslog barman
 ```
 
 # Install
@@ -59,19 +60,19 @@ However, when I want to log the output of a command (script or binary), I either
 Just run your command like you normally would prefixing it with either `justlog` or `timelog`:
 
 ```
-justlog run rcn rcn-work-* 'ps -ef -o lstart,cmd | grep [s]upervisor'
+justlog barman -v check-backup mtv-pg-01 --run 20191127T045147
 ```
 or
 ```
-timelog run rcn rcn-work-* 'ps -ef -o lstart,cmd | grep [s]upervisor'
+timelog barman -v check-backup mtv-pg-01 --run 20191127T045147
 ```
 
 This will painlessly create 2 files like this:
 
 ```
-wwalker@polonium:~ ✓ $ ls -l ~/logs/run*
--rw-r--r-- 1 wwalker wwalker  7623 2019-12-05 18:25:07.873 /home/wwalker/logs/run-2019-12-05T18:25:06
--rw-r--r-- 1 wwalker wwalker 10296 2019-12-05 18:34:59.546 /home/wwalker/logs/run-2019-12-05T18:34:57
+wwalker@polonium:~ ✓ $ ls -l ~/logs/barman*
+-rw-r--r-- 1 wwalker wwalker  7623 2019-12-05 18:25:07.873 /home/wwalker/logs/barman-2019-12-05T18:25:06
+-rw-r--r-- 1 wwalker wwalker 10296 2019-12-05 18:34:59.546 /home/wwalker/logs/barman-2019-12-05T18:34:57
 ```
 
 But, Wait there's more!!
@@ -81,8 +82,8 @@ I didn't want to have to do an ls to find the name of the log file that justlog 
 So, you run your command with justlog (or timelog), and then you just use lesslog or viewlog (I'll probably create an emacs log for Those people):
 
 ```
-justlog run rcn rcn-work\\\\\* 'ps -ef -o lstart,cmd | grep [s]upervisor'
-lesslog run
+justlog barman -v check-backup mtv-pg-01 --run 20191127T045147
+lesslog barman
 ```
 
 That's it, no `ls -lrt ~/tmp`, no tab completion games to find the file name. Just run lesslog (or viewlog if you like using vim to look at logs).
