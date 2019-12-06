@@ -49,12 +49,12 @@ That is great when I want to catch an interactive session.
 
 However, when I want to log the output of a command (script or binary), I either want the exact output, or I want the output with timestamps in front of each line.  So I wrote these some bash functions:
 
-`justlog <command and its arguments>` - run the command passed in as arguments, automatically writing stdout and stderr to a new unique log file ( ~/logs/<program-name>-YYYY-MM-DD-HH:MM:SS )
-`timelog <command and its arguments>` - just like justlog, except it prefixes everyline with a timestamp ( YYYY-MM-DD-HH:MM:SS.micros )
-`newestlog <program-name>` - returns the name the newest log file for program-name
-`lesslog <program-name>` - opens the newest log file for program-name using less
-`viewlog <program-name>` - opens the newest log file for program-name using view
-`greplog <program-name> <grep arguments and regular expression>` - runs grep on the newest log file for program-name
+* `justlog <command and its arguments>` - run the command passed in as arguments, automatically writing stdout and stderr to a new unique log file ( ~/logs/<program-name>-YYYY-MM-DD-HH:MM:SS )
+* `timelog <command and its arguments>` - just like justlog, except it prefixes everyline with a timestamp ( YYYY-MM-DD-HH:MM:SS.micros )
+* `newestlog <program-name>` - returns the name the newest log file for program-name
+* `lesslog <program-name>` - opens the newest log file for program-name using less
+* `viewlog <program-name>` - opens the newest log file for program-name using view
+* `greplog <program-name> <grep arguments and regular expression>` - runs grep on the newest log file for program-name
 
 Just run your command like you normally would prefixing it with either `justlog` or `timelog`:
 
@@ -134,5 +134,5 @@ rcn-pg-03:
 
 Coming soon to a repo near you:
 
-* command completion of the log file names for when you need to look at al older log.
+* command completion of the log file names for when you need to look at an older log.
 
