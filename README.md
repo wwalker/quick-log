@@ -9,12 +9,12 @@ Simple usage example:
 Runs the program `barman` and creates `~/logs/barman-2019-12-05T23:54:43` and logs all the program output to the log file.
 
 ```
-justlog barman -v check-backup mtv-pg-01 --run 20191127T045147
+log-plain barman -v check-backup mtv-pg-01 --run 20191127T045147
 ```
 
 View the newly created log file in less
 ```
-lesslog barman
+log-less barman
 ```
 
 # Install
@@ -50,21 +50,21 @@ That is great when I want to catch an interactive session.
 
 However, when I want to log the output of a command (script or binary), I either want the exact output, or I want the output with timestamps in front of each line.  So I wrote these some bash functions:
 
-* `justlog <command and its arguments>` - run the command passed in as arguments, automatically writing stdout and stderr to a new unique log file ( ~/logs/<program-name>-YYYY-MM-DD-HH:MM:SS )
-* `timelog <command and its arguments>` - just like justlog, except it prefixes everyline with a timestamp ( YYYY-MM-DD-HH:MM:SS.micros )
-* `newestlog <program-name>` - returns the name the newest log file for program-name
-* `lesslog <program-name>` - opens the newest log file for program-name using less
-* `viewlog <program-name>` - opens the newest log file for program-name using view
-* `greplog <program-name> <grep arguments and regular expression>` - runs grep on the newest log file for program-name
+* `log-plain <command and its arguments>` - run the command passed in as arguments, automatically writing stdout and stderr to a new unique log file ( ~/logs/<program-name>-YYYY-MM-DD-HH:MM:SS )
+* `log-time <command and its arguments>` - just like log-plain, except it prefixes everyline with a timestamp ( YYYY-MM-DD-HH:MM:SS.micros )
+* `log-newest <program-name>` - returns the name the newest log file for program-name
+* `log-less <program-name>` - opens the newest log file for program-name using less
+* `log-view <program-name>` - opens the newest log file for program-name using view
+* `log-grep <program-name> <grep arguments and regular expression>` - runs grep on the newest log file for program-name
 
-Just run your command like you normally would prefixing it with either `justlog` or `timelog`:
+Just run your command like you normally would prefixing it with either `log-plain` or `log-time`:
 
 ```
-justlog barman -v check-backup mtv-pg-01 --run 20191127T045147
+log-plain barman -v check-backup mtv-pg-01 --run 20191127T045147
 ```
 or
 ```
-timelog barman -v check-backup mtv-pg-01 --run 20191127T045147
+log-time barman -v check-backup mtv-pg-01 --run 20191127T045147
 ```
 
 This will painlessly create 2 files like this:
@@ -77,51 +77,51 @@ wwalker@polonium:~ ✓ $ ls -l ~/logs/barman*
 
 But, Wait there's more!!
 
-I didn't want to have to do an ls to find the name of the log file that justlog or timelog just created for me.
+I didn't want to have to do an ls to find the name of the log file that log-plain or log-time just created for me.
 
-So, you run your command with justlog (or timelog), and then you just use lesslog or viewlog (I'll probably create an emacs log for Those people):
+So, you run your command with log-plain (or log-time), and then you just use log-less or log-view (I'll probably create an emacs log for Those people):
 
 ```
-justlog barman -v check-backup mtv-pg-01 --run 20191127T045147
-lesslog barman
+log-plain barman -v check-backup mtv-pg-01 --run 20191127T045147
+log-less barman
 ```
 
-That's it, no `ls -lrt ~/tmp`, no tab completion games to find the file name. Just run lesslog (or viewlog if you like using vim to look at logs).
+That's it, no `ls -lrt ~/tmp`, no tab completion games to find the file name. Just run log-less (or log-view if you like using vim to look at logs).
 
 But, Wait there's more!!
 
-`lesslog`, `viewlog`, and `newestlog` only look at the first argument; so, you can be lazy:
+`log-less`, `log-view`, and `log-newest` only look at the first argument; so, you can be lazy:
 
 ```
-justlog make -D prefix=/opt
+log-plain make -D prefix=/opt
 ```
 
 Now, you just up arrow and change "just" to "less", and your looking at the recent log file:
 
 ```
-lesslog make -D prefix=/opt
+log-less make -D prefix=/opt
 ```
 
-`lesslog` (and `viewlog` and `newestlog`) just ignore the extra arguments.
+`log-less` (and `log-view` and `log-newest`) just ignore the extra arguments.
 
 But, wait! There's more!
 
-You get programmable completion (tab completion) for whatever commands you put after `justlog` and `timelog`.
+You get programmable completion (tab completion) for whatever commands you put after `log-plain` and `log-time`.
 
 But, wait! There's even more!
 
-"I use grep all the time on my log files" - And the answer is, you guessed it, `greplog`
+"I use grep all the time on my log files" - And the answer is, you guessed it, `log-grep`
 
 First, get the text from all 800 servers' /etc/cron.d/atop files that are broken:
 
 ```
-justlog fordcrun 'grep -F "0 0 * * root" /etc/cron.d/atop'
+log-plain fordcrun 'grep -F "0 0 * * root" /etc/cron.d/atop'
 ```
 
-Then get the hostnames (on the line above the output in the file :-) ) with greplog (without having to look up the log file name):
+Then get the hostnames (on the line above the output in the file :-) ) with log-grep (without having to look up the log file name):
 
 ```
-wwalker@polonium:~ ✓ $ greplog fordcrun  -B1 -F "0 0 * * root"
+wwalker@polonium:~ ✓ $ log-grep fordcrun  -B1 -F "0 0 * * root"
 int-salt-01:
     0 0 * * root systemctl restart atop
 --
