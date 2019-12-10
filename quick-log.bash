@@ -185,9 +185,9 @@ log-plain(){
   then
     # printf "%s\n" "( echo \"$@\"; \"$@\" ) | bash -c  \"$_ql_append\" > \"$_ql_filepath\" 2>&1"
     echo "_ql_append"
-    ( echo "$@"; "$@" ) | bash -c  "$_ql_append" > "$_ql_filepath" 2>&1
+    ( ( echo "$@"; "$@" ) | bash -c  "$_ql_append" ) > "$_ql_filepath" 2>&1
   else
-    "$@" | bash -c  "$_ql_append" > "$_ql_filepath" 2>&1
+    ( "$@" | bash -c  "$_ql_append" ) > "$_ql_filepath" 2>&1
   fi
 }
 
