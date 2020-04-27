@@ -58,7 +58,6 @@ _ql_init_vars(){
   _ql_opt_usage=
   _ql_opt_directory=$HOME/logs/
   _ql_opt_process_name=
-  _ql_abort=0
 }
 
 _ql_usage(){
@@ -184,7 +183,6 @@ log-plain(){
   if [[ "$_ql_opt_header" = "1" ]]
   then
     # printf "%s\n" "( echo \"$@\"; \"$@\" ) | bash -c  \"$_ql_append\" > \"$_ql_filepath\" 2>&1"
-    echo "_ql_append"
     ( ( echo "$@"; "$@" ) | bash -c  "$_ql_append" ) > "$_ql_filepath" 2>&1
   else
     ( "$@" | bash -c  "$_ql_append" ) > "$_ql_filepath" 2>&1
