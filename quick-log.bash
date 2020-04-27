@@ -213,5 +213,5 @@ log-grep(){
 
 log-newest(){
   name=$(basename "$1")
-  ls  ~/logs/"${name}"* | tail -1
+  ls  ~/logs/"${name}"* ~/permanent/"${name}"* ~/tmp/"${name}"* 2> /dev/null | tail -1
 }
